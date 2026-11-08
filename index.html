@@ -12,11 +12,31 @@ a.card{display:block;text-decoration:none;color:inherit;background:var(--card);b
 a.card:hover{transform:translateY(-2px)}
 .tag{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
 .t{font-size:1.35rem;font-weight:700;margin:4px 0}.d{color:var(--muted);font-size:.95rem}
+.tabs{display:flex;gap:6px;margin:0 0 20px;border-bottom:1px solid var(--line)}
+.tabs button{font:inherit;font-weight:700;font-size:1rem;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:10px 14px;margin-bottom:-1px;cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--ink)}
+.panel[hidden]{display:none}
+.pdf{font-size:.75rem;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
 </style></head><body><main>
 <h1>Motor Climb</h1>
-<p class="sub">Neuroanatomy review games: cerebellum, basal ganglia, thalamus &amp; hypothalamus</p>
+<p class="sub">Neuroanatomy review games &amp; cram sheets: cerebellum, basal ganglia, thalamus &amp; hypothalamus</p>
+<div class="tabs" role="tablist"><button role="tab" id="t-games" aria-controls="games" aria-selected="true">Games</button><button role="tab" id="t-cram" aria-controls="cram" aria-selected="false">Cram Sheets</button></div>
+<section class="panel" id="games" role="tabpanel" aria-labelledby="t-games">
 <a class="card" style="--c:var(--a)" href="cerebellum-climb.html"><div class="tag">Cerebellum</div><div class="t">Cerebellum Climb &rarr;</div><div class="d">Lobes, peduncles, deep nuclei, cortex circuitry &amp; cerebellar lesions, with slide diagrams and covered labels</div></a>
 <a class="card" style="--c:var(--b)" href="basal-ganglia-climb.html"><div class="tag">Basal Ganglia</div><div class="t">Basal Ganglia Climb &rarr;</div><div class="d">Motor systems: direct &amp; indirect pathways, nuclei, connections &amp; movement disorders</div></a>
 <a class="card" style="--c:var(--c1)" href="thalamus-climb.html"><div class="tag">Thalamus</div><div class="t">Thalamus Climb &rarr;</div><div class="d">Thalamic nuclei, laminae &amp; relay connections, from &ldquo;Grand Central Station&rdquo; up to stroke cases and traps</div></a>
 <a class="card" style="--c:var(--c2)" href="hypothalamus-climb.html"><div class="tag">Hypothalamus</div><div class="t">Hypothalamus Climb &rarr;</div><div class="d">Hypothalamic nuclei, pituitary control &amp; homeostasis, from the big picture up to clinical cases and traps</div></a>
-</main></body></html>
+</section>
+<section class="panel" id="cram" role="tabpanel" aria-labelledby="t-cram" hidden>
+<a class="card" style="--c:var(--a)" href="cram/cerebellum-cram.pdf" target="_blank" rel="noopener"><div class="tag">Cerebellum</div><div class="t">Cerebellum Cram Sheet<span class="pdf">PDF</span> &rarr;</div><div class="d">2-page summary for last-minute review</div></a>
+<a class="card" style="--c:var(--b)" href="cram/basal-ganglia-cram.pdf" target="_blank" rel="noopener"><div class="tag">Basal Ganglia</div><div class="t">Basal Ganglia Cram Sheet<span class="pdf">PDF</span> &rarr;</div><div class="d">1-page summary for last-minute review</div></a>
+<a class="card" style="--c:var(--c1)" href="cram/thalamus-cram.pdf" target="_blank" rel="noopener"><div class="tag">Thalamus</div><div class="t">Thalamus Cram Sheet<span class="pdf">PDF</span> &rarr;</div><div class="d">1-page summary for last-minute review</div></a>
+<a class="card" style="--c:var(--c2)" href="cram/hypothalamus-pituitary-cram.pdf" target="_blank" rel="noopener"><div class="tag">Hypothalamus &amp; Pituitary</div><div class="t">Hypothalamus &amp; Pituitary Cram Sheet<span class="pdf">PDF</span> &rarr;</div><div class="d">1-page summary for last-minute review</div></a>
+</section>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function show(id){tabs.forEach(t=>{const on=t.getAttribute('aria-controls')===id;t.setAttribute('aria-selected',on);document.getElementById(t.getAttribute('aria-controls')).hidden=!on});}
+tabs.forEach(t=>t.addEventListener('click',()=>{const id=t.getAttribute('aria-controls');show(id);history.replaceState(null,'',id==='cram'?'#cram':location.pathname)}));
+if(location.hash==='#cram')show('cram');
+</script></body></html>
